@@ -21,6 +21,7 @@
       padding: 40px;
       border-radius: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      z-index: 2;
     }
 
     h1 {
@@ -35,7 +36,6 @@
       border: none;
       border-radius: 12px;
       cursor: pointer;
-      transition: 0.3s;
     }
 
     #yes {
@@ -50,10 +50,31 @@
     }
 
     #message {
-      margin-top: 20px;
+      margin-top: 25px;
       font-size: 22px;
       color: #ff4d6d;
       display: none;
+      line-height: 1.4;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp 4s linear forwards;
+      color: #ff4d6d;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) scale(1.8);
+        opacity: 0;
+      }
     }
   </style>
 </head>
@@ -63,7 +84,11 @@
     <h1>Will you be my Valentine? 💘</h1>
     <button id="yes">Yes 💖</button>
     <button id="no">No 😒</button>
-    <div id="message">Yayyy!! I knew it 😍💞</div>
+
+    <div id="message">
+      Thanks for choosing the only option 😏<br>
+      Congrats <strong>Shradha</strong>, you’re stuck with me forever 💘
+    </div>
   </div>
 
   <script>
@@ -80,7 +105,27 @@
 
     yesBtn.addEventListener("click", () => {
       message.style.display = "block";
+      startHearts();
     });
+
+    function startHearts() {
+      for (let i = 0; i < 30; i++) {
+        setTimeout(createHeart, i * 150);
+      }
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.classList.add("heart");
+      heart.innerHTML = "💖";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 20 + 20 + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }
   </script>
 
 </body>
