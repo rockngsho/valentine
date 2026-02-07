@@ -87,16 +87,31 @@
 
   <!-- ACCESS SCREEN -->
   <div class="box" id="accessBox">
-    <h1>Enter the Secret Date 💌</h1>
+    <h1>Enter your Birthday Date 💌</h1>
 
     <select id="date">
       <option value="">Date</option>
-      <option>14</option>
+      <script>
+        for (let i = 1; i <= 31; i++) {
+          document.write(`<option>${i}</option>`);
+        }
+      </script>
     </select>
 
     <select id="month">
       <option value="">Month</option>
+      <option>Jan</option>
+      <option>Feb</option>
+      <option>Mar</option>
+      <option>Apr</option>
+      <option>May</option>
+      <option>Jun</option>
+      <option>Jul</option>
+      <option>Aug</option>
+      <option>Sep</option>
+      <option>Oct</option>
       <option>Nov</option>
+      <option>Dec</option>
     </select>
 
     <br>
@@ -108,7 +123,7 @@
   <div class="box hidden" id="valentineBox">
     <h1>Will you be my Valentine? 💘</h1>
     <button id="yes">Yes 💖</button>
-    <button id="no">🐭</button>
+    <button id="no">No 🐭</button>
 
     <div id="message">
       Thanks for choosing the only option 😏<br>
@@ -146,7 +161,7 @@
 
     yesBtn.addEventListener("click", () => {
       message.style.display = "block";
-      setInterval(createHeart, 300); // NEVER STOPS 😈💖
+      setInterval(createHeart, 300);
     });
 
     function createHeart() {
