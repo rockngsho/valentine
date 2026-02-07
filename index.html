@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Be My Valentine? 💖</title>
+  <title>Secret Valentine 💖</title>
   <style>
     body {
       height: 100vh;
@@ -15,37 +15,42 @@
       overflow: hidden;
     }
 
-    .container {
-      text-align: center;
+    .box {
       background: white;
       padding: 40px;
       border-radius: 20px;
+      text-align: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
       z-index: 2;
     }
 
     h1 {
       color: #ff4d6d;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
-    button {
-      font-size: 18px;
-      padding: 12px 25px;
+    select, button {
+      padding: 10px 15px;
+      font-size: 16px;
       margin: 10px;
-      border: none;
-      border-radius: 12px;
-      cursor: pointer;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .hidden {
+      display: none;
     }
 
     #yes {
       background-color: #ff4d6d;
       color: white;
+      border: none;
     }
 
     #no {
       background-color: #adb5bd;
       color: white;
+      border: none;
       position: absolute;
     }
 
@@ -80,10 +85,30 @@
 </head>
 <body>
 
-  <div class="container">
+  <!-- ACCESS SCREEN -->
+  <div class="box" id="accessBox">
+    <h1>Enter the Secret Date 💌</h1>
+
+    <select id="date">
+      <option value="">Date</option>
+      <option>14</option>
+    </select>
+
+    <select id="month">
+      <option value="">Month</option>
+      <option>Nov</option>
+    </select>
+
+    <br>
+    <button onclick="checkAccess()">Unlock 💖</button>
+    <p id="error" style="color:red; display:none;">Wrong date 😏 Try again</p>
+  </div>
+
+  <!-- VALENTINE SCREEN -->
+  <div class="box hidden" id="valentineBox">
     <h1>Will you be my Valentine? 💘</h1>
     <button id="yes">Yes 💖</button>
-    <button id="no">No 😒</button>
+    <button id="no">🐭</button>
 
     <div id="message">
       Thanks for choosing the only option 😏<br>
@@ -92,6 +117,22 @@
   </div>
 
   <script>
+    const accessBox = document.getElementById("accessBox");
+    const valentineBox = document.getElementById("valentineBox");
+    const error = document.getElementById("error");
+
+    function checkAccess() {
+      const date = document.getElementById("date").value;
+      const month = document.getElementById("month").value;
+
+      if (date === "14" && month === "Nov") {
+        accessBox.classList.add("hidden");
+        valentineBox.classList.remove("hidden");
+      } else {
+        error.style.display = "block";
+      }
+    }
+
     const noBtn = document.getElementById("no");
     const yesBtn = document.getElementById("yes");
     const message = document.getElementById("message");
@@ -105,14 +146,8 @@
 
     yesBtn.addEventListener("click", () => {
       message.style.display = "block";
-      startHearts();
+      setInterval(createHeart, 300); // NEVER STOPS 😈💖
     });
-
-    function startHearts() {
-      for (let i = 0; i < 30; i++) {
-        setTimeout(createHeart, i * 150);
-      }
-    }
 
     function createHeart() {
       const heart = document.createElement("div");
